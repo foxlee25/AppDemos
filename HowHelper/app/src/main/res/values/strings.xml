@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HowHelper</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <!-- nav menu-->
+    <string name="nav_allcards">Cards</string>
+    <string name="nav_deck">Decks</string>
+    <!--<string name="action_settings">Settings</string>-->
+    <!--<string name="action_settings">Settings</string>-->
+
+
+</resources>
