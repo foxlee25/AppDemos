@@ -38,7 +38,7 @@ public class HSNetWorkClient {
         @Override
         public Response intercept(Chain chain) throws IOException{
             Response originalResponse = chain.proceed(chain.request());
-            if(NetUtils.isConnected((HowHelperApplication.getContext()))){
+            if(NetUtils.isConnected((HowHelperApplication.getAppContext()))){
                 int maxAge = 60; // cache available in 60 sec;
                 return originalResponse.newBuilder().removeHeader("Pragma").removeHeader("Cache-Control").header("Cache-Control","public, max-age" + maxAge).build();
             }else {
@@ -58,14 +58,14 @@ public class HSNetWorkClient {
                 builder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
                 builder.writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
                 // 添加缓存
-                File cacheFile = new File(HowHelperApplication.getContext().getCacheDir(), "okHttpCache");
+                File cacheFile = new File(HowHelperApplication.getAppContext().getCacheDir(), "okHttpCache");
                 builder.cache(new Cache(cacheFile, CACHE_SIZE));
                 // 添加拦截器
                 builder.addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
-                        if (!NetUtils.isConnected(HowHelperApplication.getContext())) {
+                        if (!NetUtils.isConnected(HowHelperApplication.getAppContext())) {
                             // 没有网络连接
                             request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
                         }
